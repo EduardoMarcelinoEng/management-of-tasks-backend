@@ -14,6 +14,8 @@ window.addEventListener("DOMContentLoaded", ()=>{
     document.querySelector("button").addEventListener("click", e=>{
         e.preventDefault();
 
+        e.target.disabled = true;
+
         fetch("/user", {
             method: 'POST',
             headers: {
@@ -40,6 +42,7 @@ window.addEventListener("DOMContentLoaded", ()=>{
             })
             .catch(error=>{
                 alert(error.message);
-            });
+            })
+            .finally(()=>e.target.disabled = false);
     });
 });

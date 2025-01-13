@@ -1,9 +1,19 @@
+import helpers from "./helpers";
+
 window.addEventListener("DOMContentLoaded", ()=>{
+    if(helpers.tokenIsValid()){
+        window.location.href = "/admin";
+
+        return;
+    }
+
     const emailEl = document.getElementById("inputEmail");
     const passwordEl = document.getElementById("inputPassword");
 
     document.querySelector("button").addEventListener("click", e=>{
         e.preventDefault();
+
+        e.target.disabled = true;
 
         fetch("/user/auth", {
             method: 'POST',
@@ -21,11 +31,11 @@ window.addEventListener("DOMContentLoaded", ()=>{
                     return;
                 }
 
-                alert("Sucesso!");
-                // setTimeout(()=>{
-                //     loadingEl.classList.add("hide");
-                //     messageEl.classList.remove("hide");
-                // }, 3000);
-            });
+                localStorage.setItem("token", content.value);
+                localStorage.setItem("token_expiresAt", content.expiresAt.toString());
+
+                window.location.href = "/admin";
+            })
+            .finally(()=>e.target.disabled = false);
     });
 });
