@@ -1,0 +1,55 @@
+:root {
+    --color-main: #1A2236;
+    --color-primary: #CAAE6A;
+    --color-font: #24231e;
+}
+
+body {
+    background-color: var(--color-main);
+
+    .link {
+        display: flex;
+        justify-content: flex-end;
+
+        a {
+            color: var(--color-primary);
+        }
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    
+        .content-center {
+            max-width: 380px;
+            width: 100%;
+            background-color: #FBFBFD;
+            padding: 3em;
+            border-radius: 18px;
+
+            form {
+                img {
+                    width: 100%;
+                    margin-bottom: 0.5rem;
+                }
+
+                label {
+                    color: var(--color-font);
+                }
+
+                input:focus {
+                    border-color: var(--color-primary);
+                }
+
+                .btn {
+                    width: 100%;
+                    background-color: var(--color-primary);
+                    border: none;
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+}
