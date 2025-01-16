@@ -1,8 +1,9 @@
-// import type { HttpContext } from '@adonisjs/core/http'
+import type { HttpContext } from '@adonisjs/core/http'
 
 import User from "#models/user";
 import hash from '@adonisjs/core/services/hash';
 import moment from 'moment';
+import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens';
 
 export default class UsersController {
     async auth(ctx: any){
@@ -12,21 +13,10 @@ export default class UsersController {
         try {
             const { email, password } = request.body();
 
-            const user = await User.findBy('email', email);
+            const user = await User.verifyCredentials(email, password);
 
-            if(!user) return response.status(400).json({message: "Credenciais inválidas!"});
-            
-            const isPasswordValid = await hash.verify(user.password, password);
+            return await User.accessTokens.create(user);
 
-            if(!isPasswordValid) return response.status(400).json({message: "Credenciais inválidas!"});
-    
-            const token = await User.accessTokens.create(user)
-
-            return {
-              type: 'bearer',
-              value: token.value!.release(),
-              expiresAt: token.expiresAt
-            }
         } catch (error) {
             return response.status(500).json({message: error.message});
         }
@@ -56,5 +46,12 @@ export default class UsersController {
         } catch (error) {
             return response.status(500).json({message: error.message});
         }
+    }
+
+    async logout({ auth }: HttpContext){
+        const user = auth.user!
+        await User.accessTokens.delete(user, user.currentAccessToken?.identifier as any);
+
+        return { message: "success" };
     }
 }
