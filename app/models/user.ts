@@ -6,6 +6,7 @@ import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import { AccessToken, DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
 import Tag from './tag.js'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
+import Task from './task.js'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['email'],
@@ -18,6 +19,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
   @hasMany(() => Tag)
   declare tags: HasMany<typeof Tag>
+
+  @hasMany(() => Task)
+  declare tasks: HasMany<typeof Task>
 
   @column()
   declare name: string | null

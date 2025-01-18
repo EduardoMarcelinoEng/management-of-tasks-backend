@@ -1,9 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
 
 import User from "#models/user";
-import hash from '@adonisjs/core/services/hash';
-import moment from 'moment';
-import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens';
 
 export default class UsersController {
     async auth(ctx: any){

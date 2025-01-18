@@ -45,7 +45,7 @@ export default class TagsController {
 
             if(name) tag.name = name;
 
-            return tag.save();
+            return await tag.save();
 
         } catch (error) {
             return response.status(500).json({message: error.message});

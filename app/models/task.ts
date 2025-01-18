@@ -1,10 +1,10 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import User from './user.js'
-import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
-import Task from './task.js'
+import Tag from './tag.js'
 
-export default class Tag extends BaseModel {
+export default class Task extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
@@ -14,11 +14,17 @@ export default class Tag extends BaseModel {
   @belongsTo(() => User)
   declare user: BelongsTo<typeof User>
 
-  @hasMany(() => Task)
-  declare tasks: HasMany<typeof Task>
+  @column()
+  declare tagId: number
+
+  @belongsTo(() => Tag)
+  declare tag: BelongsTo<typeof Tag>
 
   @column()
-  declare name: string
+  declare title: string
+
+  @column()
+  declare description?: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
