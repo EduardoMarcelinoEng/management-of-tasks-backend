@@ -5,8 +5,9 @@
   "type": "module",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "node bin/server.js",
+    "start": "node ace serve",
     "build": "node ace build",
+    "migrate": "node ace migration:run",
     "dev": "node ace serve --hmr",
     "test": "node ace test",
     "lint": "eslint .",

@@ -16,7 +16,7 @@ export default class TasksController {
             if(description) query.where('description', 'like', `%${description}%`);
             if(tagId) query.where('tagId', '=', tagId);
 
-            return await query.preload('tag').paginate(currentPage, 10);
+            return await query.preload('tag').paginate(currentPage, 5);
         } catch (error) {
             return response.status(500).json({message: error.message});
         }

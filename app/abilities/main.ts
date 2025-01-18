@@ -13,7 +13,6 @@
 */
 
 import { Bouncer } from '@adonisjs/bouncer'
-import { AccessToken } from '@adonisjs/auth/access_tokens'
 
 /**
  * Delete the following ability to start from
