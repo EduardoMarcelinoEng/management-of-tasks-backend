@@ -41,9 +41,9 @@ services:
       MYSQL_HOST: mysql
       LANG: C.UTF-8
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - ${DB_PORT_CONTAINER_MAPPING}:${DB_PORT}
     expose:
-      - ${DB_PORT}
+      - ${DB_PORT_CONTAINER_MAPPING}
     networks:
       - my_local_network
 volumes:
