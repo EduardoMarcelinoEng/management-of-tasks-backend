@@ -1,0 +1,50 @@
+version: '3.8'
+
+networks:
+  my_local_network:
+    external: true
+
+services:
+  api:
+    image: management_of_tasks_image
+    container_name: management_of_tasks_container
+    restart: unless-stopped
+    build:
+      context: .
+      target: build
+    ports:
+      - ${PORT}:${PORT}
+    env_file: .env
+    volumes:
+      - ./:/home/node/app
+      - /home/node/app/node_modules
+    command: node ace serve --watch
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    stdin_open: true
+    tty: true
+    networks:
+      - my_local_network
+  mysql:
+    image: mysql:latest
+    container_name: database_mysql
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_HOST: mysql
+      LANG: C.UTF-8
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    expose:
+      - ${DB_PORT}
+    networks:
+      - my_local_network
+volumes:
+  db:
