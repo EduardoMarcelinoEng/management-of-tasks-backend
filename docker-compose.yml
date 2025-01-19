@@ -28,10 +28,10 @@ services:
     networks:
       - my_local_network
   mysql:
-    image: mysql:latest
+    image: mysql:8.3.0
     container_name: database_mysql
     restart: always
-    command: --mysql-native-password=ON --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
       - ./data/mysql:/var/lib/mysql
     environment:
