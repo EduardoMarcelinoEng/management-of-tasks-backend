@@ -23,3 +23,5 @@
 -Execute o comando `npm run migrate` na raiz do projeto;
 -Execute o comando `npm run build` na raiz do projeto;
 -Execute o comando `npm start` na raiz do projeto.
+
+Projeto front-end: `https://github.com/EduardoMarcelinoEng/management-of-tasks-frontend`
